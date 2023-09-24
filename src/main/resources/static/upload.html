@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            font-family: monospace;
+        }
+
+        body {
+            background: linear-gradient(violet, #ccc, white);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        input {
+            border: black 3px solid;
+            border-radius: 5px;
+            box-shadow: 0 3px 1px 0 black;
+            padding: 5px 10px;
+            transition: all ease-in-out 350ms;
+        }
+
+        input:hover {
+            box-shadow: 0 3px 3px 1px purple;
+            border-color: violet;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            border-color: black;
+            transition: all ease-in-out 250ms;
+            font-style: italic;
+        }
+
+        button:hover {
+            color: white;
+            border-color: violet;
+            outline: none;
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <h2>Photo uploaded</h2>
+
+    <input id="fileUpload" type="file" name="fileUpload" />
+    <button id="upload-button" onclick="uploadFile()">Upload</button>
+
+    <script>
+        async function uploadFile() {
+            let formData = new FormData();
+            formData.append("data", fileUpload.files[0]);
+            await fetch('http://localhost:8080/photos', {
+                method: "POST",
+                body: formData
+            }).then(result => result.text())
+                .then(text => alert(text));
+        }
+    </script>
+    
+</body>
+</html>
