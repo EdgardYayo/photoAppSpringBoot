@@ -29,22 +29,20 @@ public class PhotosController {
     
 
     @GetMapping("/photos")
-    public Collection<Photo> get() {
-        return photoService.values();
+    public Iterable<Photo> get() {
+        return photoService.get();
     }
 
     @GetMapping("/photos/{id}")
-    public Photo get(@PathVariable String id) {
+    public Photo get(@PathVariable Integer id) {
         Photo photo = photoService.get(id);
         if(photo == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         return photo;
    }
 
    @DeleteMapping("/photos/{id}")
-    public void delete(@PathVariable String id) {
-        Photo photo = photoService.remove(id);
-        if(photo == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-
+    public void delete(@PathVariable Integer id) {
+          photoService.remove(id);
     }
 
     @PostMapping("/photos")
